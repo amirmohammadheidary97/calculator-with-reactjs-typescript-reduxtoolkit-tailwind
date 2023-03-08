@@ -1,17 +1,19 @@
 import { CSSProperties } from 'react';
-import { useDispatch } from 'react-redux';
-import { TNumber } from '../../../interfaces/interface';
+import { TNumber } from '../../../interfaces/calculator.interface';
 import { setNumber } from '../../../redux/calculator.slice';
-import BaseButton from './baseButton';
+import { useAppDispatch } from '../../../redux/hooks';
+import RippledButton from './button/RippledButton';
 //////////
 const NumberButton = ({ input = "0", style = undefined, className = "" }: { className?: string; style?: CSSProperties | undefined; input: TNumber }) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const handleClick = () => {
-        dispatch(setNumber({ input }))
+        setTimeout(() => {
+            dispatch(setNumber({ input }))
+        }, 0);
     }
-    return <button style={style} onClick={handleClick} className={` ${input === "." ? "w-[30.5%]" : "grow"} font-bold rounded-lg text-lg p-3 leading-relaxed text-txtnumber bg-bgNumber` + (className ?? "")} >
+    return <RippledButton id={input} style={style} onClick={handleClick} className={` font-bold rounded-lg text-lg p-3 leading-relaxed text-txtnumber bg-bgNumber ` + (className ?? "")} >
         {input}
-    </button>
+    </RippledButton>
 }
 
 export default NumberButton;

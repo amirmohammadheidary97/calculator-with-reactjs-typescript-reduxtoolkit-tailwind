@@ -1,15 +1,20 @@
-import { useDispatch } from 'react-redux';
-import { TOperator } from '../../../interfaces/interface';
+import { CSSProperties } from 'react';
+import { TOperator } from '../../../interfaces/calculator.interface';
 import { setOperator } from '../../../redux/calculator.slice';
-import BaseButton from './baseButton';
+import { useAppDispatch } from '../../../redux/hooks';
+import RippledButton from './button/RippledButton';
 //////////
-const OperatorButton = ({ operator = "" }: { operator: TOperator }) => {
-    const dispatch = useDispatch();
+const OperatorButton = ({ style = undefined, className = "", operator }: { className?: string; style?: CSSProperties | undefined; operator: TOperator }) => {
+    const dispatch = useAppDispatch();
     const handleClick = () => {
-        dispatch(setOperator({ operator }))
+        setTimeout(() => {
+            dispatch(setOperator({ operator }))
+        }, 0);
     }
 
-    return (<BaseButton bg='bgOperator' color='txtoperator' onClick={handleClick}>{operator}</BaseButton>);
+    return <RippledButton style={style} onClick={handleClick} className={` w-[100%] font-bold rounded-lg text-lg p-3 leading-relaxed text-txteqaul bg-bgEqaul  flex flex-row justify-center items-center ` + (className ?? "")} >
+        {operator}
+    </RippledButton>
 }
 
 export default OperatorButton;

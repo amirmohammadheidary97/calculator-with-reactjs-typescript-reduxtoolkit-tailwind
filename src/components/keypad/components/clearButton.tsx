@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { CSSProperties } from 'react';
 import { clear } from '../../../redux/calculator.slice';
-import { useAppDispatch } from '../../../redux/store';
-import BaseButton from './baseButton';
+import { useAppDispatch } from '../../../redux/hooks';
+import RippledButton from './button/RippledButton';
+
 //////////
-const ClearButton = () => {
-    const dispatch = useDispatch();
-    const handleClick = () => { 
+const ClearButton = ({ style = undefined, className = "" }: { className?: string; style?: CSSProperties | undefined; }) => {
+    const dispatch = useAppDispatch();
+    const handleClick = () => {
         dispatch(clear())
     }
 
-    return (<BaseButton bg="bgClear" color='txtclear' onClick={handleClick}>C</BaseButton>);
+    return <RippledButton id='c' style={style} onClick={handleClick} className={` font-bold rounded-lg text-lg p-3 leading-relaxed text-txtnumber bg-bgNumber ` + (className ?? "")} >
+        C
+    </RippledButton>
 }
 
 export default ClearButton;
