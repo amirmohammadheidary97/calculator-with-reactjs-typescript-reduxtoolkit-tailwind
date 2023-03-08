@@ -9,7 +9,7 @@ const EqualButton = ({  style = undefined, className = "" }: { className?: strin
         dispatch(calculate())
     }
 
-    return <RippledButton id='=' style={style} onClick={handleClick} className={` w-[100%] font-bold rounded-lg text-lg p-3 leading-relaxed text-txteqaul bg-bgEqaul  flex flex-row justify-center items-center ` + (className ?? "")} >
+    return <RippledButton id='=' style={style} onClick={handleClick} className={` w-[100%] font-bold rounded-lg text-lg p-3  text-txteqaul bg-bgEqaul  flex flex-row justify-center items-center ` + (className ?? "")} >
        =
     </RippledButton>
 

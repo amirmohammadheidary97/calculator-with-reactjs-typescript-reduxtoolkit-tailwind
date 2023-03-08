@@ -15,14 +15,37 @@ const Keypad = () => {
     useKeyboard()
     ///
     return (
-        <div className='w-[100%] m-0 p-3 gap-3 flex flex-col justify-start items-stretch'>
-            <div className=' w-[100%] p-0 gap-3 flex flex-row justify-start items-stretch'>
+        <div className='w-[100%] m-0 p-3  flex flex-col justify-start items-stretch'>
+            <div className=' w-[100%] p-0  flex flex-row justify-start items-stretch'>
                 <ClearButton className='basis-1/4' />
                 <RemoveLastCharacterButton className='basis-1/4' />
                 <OperatorButton operator="/" className='basis-1/4' />
                 <OperatorButton operator="+" className='basis-1/4' />
             </div>
-            <div className='w-[100%] m-0 p-0 gap-3 flex flex-row justify-start items-stretch'>
+            <div className=' w-[100%] p-0  flex flex-row justify-start items-stretch'>
+                {_79.map((num) => (
+                    <NumberButton className='basis-1/4' key={num} input={num} />
+                ))}
+                <OperatorButton operator="*" className='basis-1/4' />
+            </div>
+            <div className=' w-[100%] p-0  flex flex-row justify-start items-stretch'>
+                {_46.map((num) => (
+                    <NumberButton className='basis-1/4' key={num} input={num} />
+                ))}
+                <OperatorButton operator="-" className='basis-1/4' />
+            </div>
+            <div className=' w-[100%] p-0  flex flex-row justify-start items-stretch'>
+                <div className='basis-3/4 m-0  flex flex-col justify-start items-stretch'>
+                    <div className=' w-[100%] p-0  flex flex-row justify-start items-stretch'>
+                        {_13.map((num) => (
+                            <NumberButton className='basis-1/3 ' key={num} input={num} />
+                        ))}
+                    </div>
+                    
+                </div>
+                <EqualButton className="basis-1/5" />
+            </div>
+            {/* <div className='w-[100%] m-0 p-0 gap-3 flex flex-row justify-start items-stretch'>
                 <div className='p-0 w-[80%] gap-3 flex flex-col justify-start items-stretch'>
                     <div className='p-0 gap-3 flex flex-row justify-between items-stretch'>
                         {_79.map((num) => (
@@ -50,7 +73,7 @@ const Keypad = () => {
                     <OperatorButton operator="-" className='basis-1/4' />
                     <EqualButton className="basis-2/4" />
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }
