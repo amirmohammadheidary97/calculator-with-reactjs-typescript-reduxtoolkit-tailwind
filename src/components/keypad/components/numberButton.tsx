@@ -4,7 +4,7 @@ import { setNumber } from '../../../redux/calculator.slice';
 import { useAppDispatch } from '../../../redux/hooks';
 import RippledButton from './button/RippledButton';
 //////////
-const NumberButton = ({ input = "0", style = undefined, className = "" }: { className?: string; style?: CSSProperties | undefined; input: TNumber }) => {
+const NumberButton = ({ input = "0", style = undefined, className = "", }: { className?: string; style?: CSSProperties | undefined; input: TNumber }) => {
     const dispatch = useAppDispatch();
     const handleClick = () => {
         setTimeout(() => {

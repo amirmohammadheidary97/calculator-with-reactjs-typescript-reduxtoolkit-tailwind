@@ -16,8 +16,8 @@ const Display = () => {
 
     return (
         <div dir='ltr' className='gap-3 p-3 h-[150px] flex flex-col justify-start items-stretch'>
-            <div className='tiny-scrollbar h-[50%] font-bold text-3xl text-white'>{thousandSeparator(result)}</div>
-            <div className='tiny-scrollbar h-[50%] font-bold text-xl text-white'>{display}</div>
+            <div className='tiny-scrollbar h-[50%] font-bold text-3xl text-white flex flex-row justify-start align-center'>{thousandSeparator(result)}</div>
+            <div className='tiny-scrollbar h-[50%] font-bold text-xl text-white tracking-[2px] flex flex-row justify-start align-center'>{display}</div>
         </div>
     );
 }

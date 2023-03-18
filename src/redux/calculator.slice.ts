@@ -22,25 +22,22 @@ export const calculatorSlice = createSlice({
     reducers: {
         setPoint: (state: ICalculatorState) => {
             if (state.display.indexOf(".") !== state.display.length - 1) {
-                if (!["+", "/", "-", "*"].includes(state.display[state.display.length - 1])) {
-                    state.display += "."
+                if (!["+", "/", "-", "*", " "].includes(state.display[state.display.length - 1])) {
+                    state.display += ".";
                 }
             }
         },
         setNumber: (state: ICalculatorState, action) => {
-
             if (state.display === "0") {
                 state.display = action.payload.input
             } else {
                 state.display += action.payload.input
             }
-
-            console.log(state.display, state.currentOperation);
+            /////////////
             if (state.currentOperation !== "none") {
                 const node = math.parse(state.display)
                 const code1 = node.compile()
                 state.result = code1.evaluate()
-                // state.currentOperation = "none"
             }
             if (!state.display.split("").some(char => ["+", "/", "-", "*"].includes(char))) {
                 state.result = state.display
@@ -48,23 +45,47 @@ export const calculatorSlice = createSlice({
         },
         setOperator: (state: ICalculatorState, { type, payload }) => {
             if (state.display === "0" && (payload.operator === "-" || payload.operator === "+")) {
-                state.display = setWithSpaceAround(payload.operator);
+                state.display = payload.operator;
                 state.result = "0";
             }
-            else if (state.currentOperation === payload.operator) {
-                state = state
+            /*
+            
+            new input situations : {
+                empty => {
+                    number input : new input replaces with old ,
+                    operator input : new input  replaces with old if 
+                    . 
+                },
+                0 => { 
+                    new number replaces with old ,
+                },
+                number =>{
+                    new number += old display ,
+                },
+                . => {
+
+                }
             }
+            
+            */
+
+            // else if (state.currentOperation === payload.operator) {
+            //     state = state;
+            // }
+            /*if (state.display.endsWith("-") || state.display.endsWith("*") || state.display.endsWith("/") || state.display.endsWith("+")) {
+                    state.display = state.display.substring(0, state.display.length - 1) + (payload.operator);
+            }*/
             else if (state.currentOperation === "+" && payload.operator === "-") {
                 state.currentOperation = '-';
-                state.display += ' - ';
+                state.display += '-';
             }
             else if (state.currentOperation === "-" && payload.operator === "+") {
                 state.currentOperation = '-';
-                state.display += ' - ';
+                state.display += '-';
             }
             else if ((payload.operator === "*" || payload.operator === "/" || payload.operator === "-" || payload.operator === "+")) {
                 state.currentOperation = payload.operator;
-                state.display += setWithSpaceAround(payload.operator);
+                
             }
         },
         clear: (state) => {
@@ -74,19 +95,16 @@ export const calculatorSlice = createSlice({
         },
         removeLastChar: (state) => {
             if (state.display.length === 0) return
-            const lastChar: string = state.display.charAt(state.display.length - 1)
-            console.log(state.display);
-
-            if (lastChar === " ") {
-                const newStr = state.display.substring(0, state.display.length - 3)
-                state.display = newStr.length === 0 ? "0" : newStr
+            ///
+            const dsply: string = state.display;
+            const lastChar: string = dsply.split("")[dsply.length - 1]
+            if (["+", "/", "-", "*"].includes(lastChar)) {
                 state.currentOperation = "none"
-
             }
-            else {
-                const newStr = state.display.substring(0, state.display.length - 1)
-                state.display = newStr.length === 0 ? "0" : newStr
-            }
+            ///
+            const newStr = state.display.substring(0, state.display.length - 1)
+            state.display = newStr.length === 0 ? "0" : newStr
+            ///
             if (state.currentOperation === "none" && !state.display.split("").some(char => ["+", "/", "-", "*"].includes(char))) {
                 state.result = state.display
             }
